@@ -1,3 +1,3 @@
 all:
-	g++ -std=c++11 vector.cpp matrix.cpp -o chek.out
+	g++ -std=c++11 vectors.cpp matrix.cpp matrix2.cpp -o chek.out
 compile:
