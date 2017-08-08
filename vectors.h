@@ -7,15 +7,16 @@ inline T square(T number)
     return number*number;
 }
 
+class Matrix;
 //the class Vector3D is for handling various 3D operations needed
 //for the ray tracing algorithm
 //the axes are aligned according to right hand screw rule and z pointing up
 class Vector3D
 {
-    private:
+    public:
         double m_x, m_y, m_z;
     
-    public:
+    
         
         //default constructor 
         Vector3D();
@@ -41,13 +42,18 @@ class Vector3D
         Vector3D& operator/=(const Vector3D &vector);
         
         //to get vector components, index ={0,1,2}
-        double& operator[](const int index);
+        const double& operator[](const int index) const;
 
             
-        
         //overloaded binary operators
         friend Vector3D operator+(const Vector3D &vector1, const Vector3D &vector2);
         friend Vector3D operator-(const Vector3D &vector1, const Vector3D &vector2);
+        friend Vector3D operator*(const Vector3D &vector1, const Vector3D &vector2);  //use carefully
+        friend Vector3D operator/(const Vector3D &vector1, const Vector3D &vector2);  //use carefully
+        
+        //overloaded unary operators
+        friend Vector3D operator-(const Vector3D &vector);
+
        
         //scaling functions for vectors
         friend Vector3D operator*(const double &num, const Vector3D &vector);

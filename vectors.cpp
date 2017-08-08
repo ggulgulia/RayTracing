@@ -1,12 +1,13 @@
 #include <cstdlib>
 #include <iostream>
 #include "vectors.h"
+#include "matrix.h"
 #include <cmath>
 
 //default constructor making the unit vector point 
 // along z axis
 Vector3D::Vector3D()
-		:  m_x(0.0), m_y(0.0), m_z(1.0)
+		:  m_x(0.0), m_y(0.0), m_z(0.0)
 {		
 	std::cout <<"Calling default constructor\n";
 }
@@ -52,7 +53,7 @@ std::ostream& operator<<(std::ostream &out, const Vector3D &vector)
 }
 
 //overloaded subscript operator to return vector components
-double& Vector3D::operator[](const int index)
+const double& Vector3D::operator[](const int index) const
 {
     switch (index)
     {
@@ -88,6 +89,7 @@ Vector3D& Vector3D::operator=(const Vector3D &vector)
 	return *this;
 }
 
+//binary operations on vectors
 Vector3D operator+(const Vector3D &vector1, const Vector3D &vector2)
 {
 	return Vector3D((vector1.m_x + vector2.m_x), (vector1.m_y + vector2.m_y), (vector1.m_z + vector2.m_z));
@@ -97,6 +99,28 @@ Vector3D operator-(const Vector3D &vector1, const Vector3D &vector2)
 {
 	return Vector3D((vector1.m_x - vector2.m_x), (vector1.m_y - vector2.m_y), (vector1.m_z - vector2.m_z));
 }
+
+Vector3D operator*(const Vector3D &vector1, const Vector3D &vector2)
+{
+   return Vector3D((vector1.m_x*vector2.m_x),(vector1.m_y*vector2.m_y), (vector1.m_z*vector2.m_z));
+}
+
+Vector3D operator/(const Vector3D &vector1, const Vector3D &vector2)
+{
+    return Vector3D((vector1.m_x/vector2.m_x),(vector1.m_y/vector2.m_y), (vector1.m_z/vector2.m_z));
+}
+
+/********************** overloaded binary operator ends here***********/
+
+
+
+/**** Overloaded unary operator ****************/
+Vector3D operator-(const Vector3D &vector)
+{
+    return Vector3D(-(vector.m_x), -(vector.m_y), -(vector.m_z));
+}
+/**** Overloaded unary operator ends here ****************/
+
 
 Vector3D operator*(const double &num, const Vector3D &vector)
 {
