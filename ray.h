@@ -13,7 +13,7 @@ class Ray
 {
     private:
 	    Vector3D m_origin; // start
-	    Vector3D m_direction;
+	    Vector3D m_direction; //direction of ray traversal
 	    double m_distance;
     
     public:
@@ -28,8 +28,12 @@ class Ray
 	    Ray& operator =(const Ray &ray);
 
 	    //returns the coordinates (in vector form) on the ray 
-	    //at a distance 'distance' on the ray
+	    //at a distance 'distance' on the ray (along the ray direction)
 	    Vector3D calculate(double distance) const;
+	    
+	    const Vector3D getDirection() const;
+	    const Vector3D getOrigin() const;
+	    const double getDistance() const;
 
 };
             

@@ -41,4 +41,19 @@ Vector3D Ray::calculate(double distance) const
 	return (this->m_origin + (this->m_direction * distance));
 }
 
+//getter functions
+
+const Vector3D Ray::getDirection() const
+{
+ return m_direction;
+}
+const Vector3D  Ray::getOrigin() const
+{
+    return m_origin;
+}
+const double Ray::getDistance() const
+{
+    return m_distance;
+}
+
 

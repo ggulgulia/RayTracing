@@ -1,6 +1,7 @@
 #include <iostream>
 #include "vectors.h"
 #include "matrix.h"
+#include "intersection.h"
 #include "ray.h"
 #include <cmath>
 #include <iomanip>
@@ -16,6 +17,10 @@ int main(int argc, char** argv)
     std::cout << "all working okay till now\n";
     
     std::cout << anotherRay.calculate(2);
+    
+    Intersection intersectionObj(anotherRay);
+    
+  //  std::cout << "\n" << anotherRay.getOrigin() << "\n" << anotherRay.getDistance() <<"\n" << anotherRay.getDirection() << "\n";
     
     return 0;
 }
