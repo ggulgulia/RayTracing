@@ -3,24 +3,34 @@
 #include "matrix.h"
 #include "intersection.h"
 #include "ray.h"
+#include "shape.h"
 #include <cmath>
 #include <iomanip>
 
 int main(int argc, char** argv)
 {
 
-    Vector3D a, b(2,1, 4), c(0, -1, 3), o(5,9,2), dir(1,1,0);
+    Vector3D a, point(2,2, 4), normal(0, 0, 1), rayOrigin(2,2,-8), rayDir(0, 0, 1);
     Matrix m_sample;
     
-    Ray myRay, anotherRay(o, dir, 1);
+    Ray myRay, testRay(rayOrigin, rayDir, 13);
     
     std::cout << "all working okay till now\n";
     
-    std::cout << anotherRay.calculate(2);
+    std::cout << testRay.calculate(2);
     
-    Intersection intersectionObj(anotherRay);
+    Intersection inter(testRay);
     
-  //  std::cout << "\n" << anotherRay.getOrigin() << "\n" << anotherRay.getDistance() <<"\n" << anotherRay.getDirection() << "\n";
+    std::cout << "\n" << testRay.getOrigin() << "\n" << testRay.getDistance() <<"\n" << testRay.getDirection() << "\n";
+  
+    std::cout << inter.getRay() << "\n" << inter.getShape() << "\n" << "traverse" << inter.getTraverse() << "\n";
+
+    Plane xyPlane(point, normal);
+    
+    if(xyPlane.doesIntersect(testRay))
+    {
+        std::cout << "the ray intersects the plane\n";
+    }
     
     return 0;
 }

@@ -15,7 +15,7 @@ class Intersection
 	
 	private:
 	    Ray m_ray;
-	    double m_t;
+	    double m_traverse;
 	    Shape *m_pShape;
 	    //Color m_color;
     
@@ -30,6 +30,19 @@ class Intersection
 
 	    bool intersected() const;
 	    Vector3D position() const;
+	    
+	    //getter functions
+	    const Shape* getShape() const;
+	    const Ray getRay() const;
+	    const double getTraverse() const;
+	    //const Color getColor() const;
+	    
+	    //setter functions
+	    
+	    void setShape(Shape *shape);
+	    void setTraverse(const double traverse);
+	    void setRay(const Ray &ray);
+	    //void setColor(Color color);
 };
 
 #endif

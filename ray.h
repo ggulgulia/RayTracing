@@ -13,7 +13,7 @@ class Ray
 {
     private:
 	    Vector3D m_origin; // start
-	    Vector3D m_direction; //direction of ray traversal
+	    Vector3D m_direction; //direction of ray traversal, has to be normalized
 	    double m_distance;
     
     public:
@@ -26,6 +26,7 @@ class Ray
 	    virtual ~Ray();
 
 	    Ray& operator =(const Ray &ray);
+	    friend std::ostream& operator<<(std::ostream &out, const Ray &ray);
 
 	    //returns the coordinates (in vector form) on the ray 
 	    //at a distance 'distance' on the ray (along the ray direction)

@@ -9,21 +9,21 @@
 Vector3D::Vector3D()
 		:  m_x(0.0), m_y(0.0), m_z(0.0)
 {		
-	std::cout <<"Calling default constructor\n";
+	//std::cout <<"Calling default constructor\n";
 }
 		
 //user defined constructor
 Vector3D::Vector3D(double x, double y, double z)
 		:m_x(x), m_y(y), m_z(z)
 {
-	std::cout << "calling user defined constructor\n";
+	//std::cout << "calling user defined constructor\n";
 }
 
 //copy constructor
 Vector3D::Vector3D(const Vector3D &vector)
 		:m_x(vector.m_x), m_y(vector.m_y), m_z(vector.m_z)
 {
-	std::cout << "calling copy constructor\n";
+	//std::cout << "calling copy constructor\n";
 }
 
 //length square and length functions for vectors		

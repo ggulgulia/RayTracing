@@ -1,4 +1,5 @@
 #include "ray.h"
+#include <ostream>
 
 //default constructor making the ray start at m_origin 
 Ray::Ray()
@@ -33,6 +34,15 @@ Ray& Ray::operator =(const Ray& ray)
 	this->m_direction = ray.m_direction;
 	this->m_distance = ray.m_distance;
 	return *this;
+}
+
+std::ostream& operator<<(std::ostream &out, const Ray &ray)
+{
+    out << "Origin: " << ray.getOrigin() << "\n";
+    out << "Direction: " << ray.getDirection() << "\n";
+    out << "Distance: " << ray.getDistance() << "\n";
+    
+    return out;
 }
 
 //caclulates the point on the ray at a given distance

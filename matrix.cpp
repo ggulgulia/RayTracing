@@ -8,7 +8,7 @@
 //default constructor initializing all elements to zero
 Matrix::Matrix()
 {
-	std::cout << "Calling default constructor for matrix\n";
+	//std::cout << "Calling default constructor for matrix\n";
 	for(int i=0; i<D; ++i)
 	{
 		for(int j=0; j<D; ++j)
@@ -21,7 +21,7 @@ Matrix::Matrix()
 //copy constructor doing a deep copy
 Matrix::Matrix(const Matrix &A)
 {
-	std::cout << "Calling copy constructor on the matrix\n";
+	//std::cout << "Calling copy constructor on the matrix\n";
 	
 	for(int i=0; i<D; ++i)
 	{
@@ -56,7 +56,7 @@ Matrix::~Matrix() {	}
 //overloaded assignment operators
 Matrix& Matrix::operator=(const Matrix &A)
 {
-	std::cout << "Calling the overloaded assignment operator\n";
+	//std::cout << "Calling the overloaded assignment operator\n";
 	for(int i=0; i<D; ++i)
 	{
 		for(int j=0; j<D; ++j)

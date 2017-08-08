@@ -2,20 +2,21 @@
 
 //default constructor
 Intersection::Intersection()
-	: m_ray(), m_t(RAY_T_MAX), m_pShape(NULL)
+	: m_ray(), m_traverse(RAY_T_MAX), m_pShape(NULL)
 {
 }
 
 //copy constructor
 Intersection::Intersection(const Intersection &i)
-	: m_ray(i.m_ray), m_t(i.m_t), m_pShape(i.m_pShape)
+	: m_ray(i.m_ray), m_traverse(i.m_traverse), m_pShape(i.m_pShape)
 {
 }
 
 //user defined constructor withot any shape object
 Intersection::Intersection(const Ray &ray)
-	: m_ray(ray), m_t(ray.getDistance()), m_pShape(NULL)
+	: m_ray(ray), m_traverse(ray.getDistance()), m_pShape(NULL)
 {
+    std::cout << "Calling Intersection constructor taking Ray object\n";
 }
 
 Intersection::~Intersection()
@@ -26,7 +27,7 @@ Intersection::~Intersection()
 Intersection& Intersection::operator =(const Intersection &i)
 {
 	this->m_ray = i.m_ray;
-	this->m_t = i.m_t;
+	this->m_traverse = i.m_traverse;
 	this->m_pShape = i.m_pShape;
 	return *this;
 }
@@ -39,5 +40,45 @@ bool Intersection::intersected() const
 
 Vector3D Intersection::position() const
 {
-	return m_ray.calculate(m_t);
+	return m_ray.calculate(m_traverse);
 }
+
+
+//getter functions
+const Shape* Intersection::getShape() const
+{
+    return m_pShape;
+}
+const Ray Intersection::getRay() const
+{
+    return m_ray;
+}
+
+const double Intersection::getTraverse() const
+{
+    return m_traverse;
+}
+/*
+const Color Intersection::getColor() const
+{
+    return m_color;
+}*/
+
+//setter functions
+
+void Intersection::setShape(Shape *shape)
+{
+    m_pShape = shape;
+}
+
+void Intersection::setTraverse(const double traverse)
+{
+    m_traverse = traverse;
+}
+
+void Intersection::setRay(const Ray &ray)
+{
+    m_ray = ray;
+}
+
+//void setColor(Color color);
