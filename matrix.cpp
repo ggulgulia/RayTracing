@@ -136,6 +136,8 @@ Matrix scale(const Matrix &A, const double &num)
 	return M;
 }
 
+
+
 //fundamental matrix operations
 
 //determinants
@@ -341,7 +343,7 @@ Matrix inv(const Matrix &A)
 
 /*****************************************************************/
 /************************FOR TESTING******************************/
-/*****************************************************************
+/*****************************************************************	
 int main(int argc, char **argv)
 {
 	std::cout << std::setprecision(8);
@@ -352,10 +354,10 @@ int main(int argc, char **argv)
 	
 	//Matrix B(A);
 	
-	//Matrix oneMatrix = ones();
+	Matrix oneMatrix = ones();
 	std::cout << oneMatrix;
 	
-	//Matrix I = eye();
+	Matrix I = eye();
 	std::cout << I;
 	
 	A = scale(oneMatrix, 3) + I;
@@ -363,7 +365,7 @@ int main(int argc, char **argv)
 	std::cout << "determinant of A = " << det(A) <<"\n";
 	std::cout << "inverse of A = " << inv(A) << "\n";
 	
-	//Matrix C = zeros();
+	Matrix C = zeros();
 	inv(C);
 	
 	return 0;
