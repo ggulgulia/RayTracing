@@ -1,82 +1,36 @@
-#include <iostream>
-#include "vectors.h"
-#include "matrix.h"
-#include <cmath>
+#ifndef RAY_H
+#define RAY_H
 
-#ifndef _RAY_H_
-#define _RAY_H
+#include "vectors.h"
+
+// In order to prevent bouncing rays self-intersecting
+#define RAY_T_MIN 0.0001f
+
+// 'Infinite' distance, used as a default value
+#define RAY_T_MAX 1.0e30f
 
 class Ray
 {
     private:
-        Vector3D  m_start ,  m_dir;
-        Vector3D s_sq, sd, d_sq;
-        
-        void preCompute()
-        {
-            s_sq =  m_start * m_start ;
-            sd =  m_start * m_dir;
-            d_sq =  m_dir* m_dir;
-        }
-        
-        friend class World;
-        friend class AxisAlginedBox;
-        friend class Object3D;
-        friend class sphere;
-        friend class BoundingBox;
-        friend class Planar;
-        friend class Quadric;
-        friend class Polygon;
-        friend class Ellipsoid;
-        friend class Algebric;
-        friend class HallSurface;
-        friend class DistributedHall;
-            
+	    Vector3D m_origin; // start
+	    Vector3D m_direction;
+	    double m_distance;
+    
     public:
-        Ray(const Vector3D &whereFrom, const Vector3D &whichDir)
-        {
-             m_start  = whereFrom;
-             m_dir = normalize(whichDir);
-            preCompute();
-        }
-        
-        //Extrapolate a  given Ray Parameter
-        Vector3D extrapolate(double t) const
-        {
-            return ( m_start  +  m_dir*t);
-        }
-        
-        //return parameter given a point on a ray
-        double interp(Vector3D &x) const
-        {
-            for(int i=0; i<3; ++i)
-            {
-                if(std::abs( m_dir[i]) > 10)
-                {
-                    return (x[i] -  m_start [i])/ m_dir[i];
-                }
-                    
-                else {return 0;}
-            }
-        }
-        
-        
-        //finds the reflection direction of the ray
-        //for a given normal to the surface
-        Vector3D reflectRay(const Vector3D &normal) const
-        {
-            return normal*2*dotProduct(normal, - m_dir) +  m_dir;
-        }
-        
-        
-/*        void applyTransform(Matrix &tform)
-        {
-             m_start  = tform* m_start ;
-             m_dir = RotationOnly(tform,  m_dir);
-            preCompute();
-        }
-*/        
-        
+	    Ray();
+	    Ray(const Ray &ray);	    
+	    Ray(const Vector3D &origin, 
+            const Vector3D &direction, 
+            double tMax = RAY_T_MAX);
+
+	    virtual ~Ray();
+
+	    Ray& operator =(const Ray &ray);
+
+	    //returns the coordinates (in vector form) on the ray 
+	    //at a distance 'distance' on the ray
+	    Vector3D calculate(double distance) const;
+
 };
             
 #endif
