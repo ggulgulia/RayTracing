@@ -176,12 +176,31 @@ Matrix ScaleMatrix(double x, double y, double z)
     return M;
 }
 
-
+//constructs a rotation matrix that makes the x, y and z a
+//axis corresponding to the given vector
 Matrix genRotation(const Vector3D &x, const Vector3D &y, const Vector3D &z)
 {
-
+    Matrix M = eye();
+    
+    M.m_matrix[0][0] = x.m_x;
+    M.m_matrix[1][0] = x.m_y;
+    M.m_matrix[2][0] = x.m_x;
+    
+    M.m_matrix[0][1] = y.m_x;
+    M.m_matrix[1][1] = y.m_y;
+    M.m_matrix[2][1] = y.m_z;
+    
+    M.m_matrix[0][2] = z.m_x;
+    M.m_matrix[1][2] = z.m_y;
+    M.m_matrix[2][2] = z.m_z;
+    
+    return M;
 }
 
+//construct a view matrix to rotate and translate the world
+//the viewer is located at 'viewer' and looking at 'lookAt' and 
+//the up vector is at uppp'up'. The transformation changes 
+//things around so the viewer is at origin and looking down at -z axis
 Matrix viewMatrix(const Vector3D &lookAt, const Vector3D &viewer, const Vector3D &up)
 {
 

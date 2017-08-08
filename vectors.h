@@ -1,6 +1,8 @@
 #ifndef _VECTOR_MATHS_H_
 #define _VECTOR_MATHS_H_
 
+#include <iostream>
+
 template <class T>
 inline T square(T number)
 {

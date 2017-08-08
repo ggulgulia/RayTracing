@@ -157,6 +157,8 @@ Vector3D crossProduct(const Vector3D &vector1, const Vector3D &vector2)
 	return Vector3D();
 }
 
+typedef Vector3D Point;
+
 /*****************************************************************/
 /************************FOR TESTING******************************/
 /*****************************************************************	
