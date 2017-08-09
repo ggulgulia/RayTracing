@@ -1,3 +1,4 @@
+SOURCES= vectors.cpp matrix.cpp matrix2.cpp ray.cpp intersection.cpp shape.cpp main.cpp
 CC=g++
 
 CFLAGS=-std=c++11 -c -Werror -pedantic -Wall
@@ -11,30 +12,18 @@ endif
 #linker flags
 LDFLAGS=-lm
 
-#OBJECTS=$(SOURCES:.c=.o)
+OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=raysim
 
 all: $(EXECUTABLE)
 
-$(EXECUTABLE): vectors.o matrix.o ray.o intersection.o shape.o main.o
-		$(CC) vectors.o matrix.o ray.o intersection.o shape.o main.o -o $@ $(LDFLAGS) 
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $(OBJECTS) -o $@ $(LDFLAGS) 
 		
-main.o: main.cpp
-		$(CC) $(CFLAGS) main.cpp
-		
-vectors.o: vectors.cpp
-		$(CC) $(CFLAGS) vectors.cpp
-		
-matrix.o: matrix.cpp matrix2.cpp
-		$(CC) $(CFLAGS) matrix.cpp matrix2.cpp
-		
-intersection.o: intersection.cpp
-		$(CC) $(CFLAGS) intersection.cpp
-		
-shape.o: shape.cpp
-		$(CC) $(CFLAGS) shape.cpp
+$(OBJECTS): %.o : %.cpp
+	$(CC) $(CFLAGS) -c $< -o $@
 		
 clean:
-	rm -rf *.o $(EXECUTABLE)
+	rm -f $(OBJECTS) $(EXECUTABLE)
 	
 	
