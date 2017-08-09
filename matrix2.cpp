@@ -201,6 +201,8 @@ Matrix genRotation(const Vector3D &x, const Vector3D &y, const Vector3D &z)
 //the viewer is located at 'viewer' and looking at 'lookAt' and 
 //the up vector is at uppp'up'. The transformation changes 
 //things around so the viewer is at origin and looking down at -z axis
+
+/*************************************************************************************
 Matrix viewMatrix(const Vector3D &lookAt, const Vector3D &viewer, const Vector3D &up)
 {
 
@@ -210,7 +212,7 @@ Matrix viewMatrix(const Vector3D &lookAt, const Vector3D &viewer, const Vector3D
 Matrix quadricMatrix(double a, double b, double c, double d, double e, double f,
                           double g, double h, double i, double j, double k)
 {
-
+   
 }
 
 
@@ -236,3 +238,4 @@ Matrix RotationOnly(const Matrix &x)
 {
 
 }
+*************************************************************************************/
