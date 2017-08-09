@@ -2,10 +2,22 @@ CC=g++
 
 CFLAGS=-std=c++11 -c -Werror -pedantic -Wall
 
-all: trace
+ifeq ($(mode),debug)                                                                                                                                  
+CFLAGS += -O0 -g
+else
+CFLAGS += -O3
+endif 
 
-trace: vectors.o matrix.o ray.o intersection.o shape.o main.o
-		$(CC) vectors.o matrix.o ray.o intersection.o shape.o main.o -o trace
+#linker flags
+LDFLAGS=-lm
+
+#OBJECTS=$(SOURCES:.c=.o)
+EXECUTABLE=raysim
+
+all: $(EXECUTABLE)
+
+$(EXECUTABLE): vectors.o matrix.o ray.o intersection.o shape.o main.o
+		$(CC) vectors.o matrix.o ray.o intersection.o shape.o main.o -o $@ $(LDFLAGS) 
 		
 main.o: main.cpp
 		$(CC) $(CFLAGS) main.cpp
@@ -23,4 +35,6 @@ shape.o: shape.cpp
 		$(CC) $(CFLAGS) shape.cpp
 		
 clean:
-	rm -rf *.o *trace
+	rm -rf *.o $(EXECUTABLE)
+	
+	
