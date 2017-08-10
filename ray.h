@@ -14,7 +14,8 @@ class Ray
     private:
 	    Vector3D m_origin; // start
 	    Vector3D m_direction; //direction of ray traversal, has to be normalized
-	    double m_distance;
+	    double m_distance; //how much distance a ray travels before it comes to stop
+	                       //funny but practical definition
     
     public:
 	    Ray();
