@@ -21,7 +21,7 @@ $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(OBJECTS) -o $@ $(LDFLAGS) 
 		
 $(OBJECTS): %.o : %.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $< -o $@
 		
 clean:
 	rm -f $(OBJECTS) $(EXECUTABLE)

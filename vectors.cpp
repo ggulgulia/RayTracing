@@ -48,7 +48,7 @@ Vector3D::~Vector3D()
 
 std::ostream& operator<<(std::ostream &out, const Vector3D &vector)
 {
-	out << "x= " << vector.m_x << " y= " << vector.m_y << " z= " << vector.m_z << "\n";
+	out << "{x,y,z " << vector.m_x << ", " << vector.m_y << ", " << vector.m_z << "}\t";
 	return out;
 }
 
@@ -154,7 +154,12 @@ double dotProduct(const Vector3D &vector1, const Vector3D &vector2)
 //TODO complete corss product
 Vector3D crossProduct(const Vector3D &vector1, const Vector3D &vector2)
 {
-	return Vector3D();
+	Vector3D result;
+	
+	result.m_x = vector1.m_y*vector2.m_z - vector1.m_z*vector2.m_y;
+	result.m_y = vector1.m_z*vector2.m_x - vector1.m_x*vector2.m_z;
+	result.m_z = vector1.m_x*vector2.m_y - vector1.m_y*vector2.m_x;
+	return result;
 }
 
 typedef Vector3D Point;

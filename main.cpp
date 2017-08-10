@@ -32,5 +32,12 @@ int main(int argc, char** argv)
         std::cout << "the ray intersects the plane\n";
     }
     
+    Vector3D rand1(0.2785, 0.5469, 0.9575), rand2(0.9649, 0.1576, 0.9706);
+    
+    std::cout << "Cross Product of : " << rand1 << " and " << rand2 << " = " << crossProduct(rand1, rand2) << "\n";
+    
+    std::cout << "test1: " << dotProduct(rand1, crossProduct(rand1, rand2)) << "\n";
+    std::cout << "test2: " << dotProduct(rand2, crossProduct(rand1, rand2)) << "\n";
+    
     return 0;
 }
