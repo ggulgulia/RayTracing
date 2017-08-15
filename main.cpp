@@ -37,21 +37,41 @@ void rayTrace(Image& image, Camera* camera, Plane plane)
 int main(int argc, char** argv)
 {
 
-    Vector3D a, point(2,2, 4), normal(0, 0, 1), rayOrigin(2,2,-8), rayDir(0, 0, 1);
+    std::cout << "*********Testing Vectors***************\n\n";
+    
+    Vector3D a, point(2,2, 4), normal(0, 0, 1), rayOrigin(4,-4,0), rayDir(0, 0, 1), rayDir2(0,1,0);
+    
+        //Vector3D rand1(0.2785, 0.5469, 0.9575), rand2(0.9649, 0.1576, 0.9706);
+    
+    //std::cout << "Cross Product of : " << rand1 << " and " << rand2 << " = " << crossProduct(rand1, rand2) << "\n";
+    
+    //std::cout << "test1: " << dotProduct(rand1, crossProduct(rand1, rand2)) << "\n";
     Matrix m_sample;
     
-    Ray myRay, testRay(rayOrigin, rayDir, 13);
+    std::cout << "\n*********End of Testing Vectors***************\n\n";
+
+
     
-    std::cout << "all working okay till now\n";
+    std::cout << "*********Testing Rays***************\n\n";
     
+    Ray myRay, testRay(rayOrigin, rayDir, 13);   
     std::cout << testRay.calculate(2);
     
-    Intersection inter(testRay);
-    
-    std::cout << "\n" << testRay.getOrigin() << "\n" << testRay.getDistance() <<"\n" << testRay.getDirection() << "\n";
-  
-    std::cout << inter.getRay() << "\n" << inter.getShape() << "\n" << "traverse" << inter.getTraverse() << "\n";
+    std::cout << "\n*********End of Testing Rays***************\n\n";
 
+
+    
+    std::cout << "*********Testing Intersection***************\n\n";
+    
+    Intersection inter(testRay);
+    std::cout << "\n" << testRay.getOrigin() << "\n" << testRay.getDistance() <<"\n" << testRay.getDirection() << "\n\n";
+  
+    std::cout << inter.getRay() << "\n" << inter.getShape() << "\n" << "traverse " << inter.getTraverse() << "\n";
+    
+    std::cout << "*********End of Testing Intersections***************\n\n";
+    
+    
+     std::cout << "\n*********Testing Shapes***************\n\n";
     Plane xyPlane(point, normal);
     
     if(xyPlane.doesIntersect(testRay))
@@ -59,12 +79,29 @@ int main(int argc, char** argv)
         std::cout << "the ray intersects the plane\n";
     }
     
-    Vector3D rand1(0.2785, 0.5469, 0.9575), rand2(0.9649, 0.1576, 0.9706);
     
-    std::cout << "Cross Product of : " << rand1 << " and " << rand2 << " = " << crossProduct(rand1, rand2) << "\n";
+    Vector3D centre(4,4,0);
+    Sphere ball(centre, 4.0);
     
-    std::cout << "test1: " << dotProduct(rand1, crossProduct(rand1, rand2)) << "\n";
-    std::cout << "test2: " << dotProduct(rand2, crossProduct(rand1, rand2)) << "\n";
+    Ray testRay2(rayOrigin, rayDir2, 4.000001);
+    std::cout << "\nRay direction: " << rayDir2 << "\n";
+//rayDir2(12,23,19)    
+//rayOrigin(2,-4,0)
+    std::cout << testRay2.getDirection().isNormalized() <<"\n";
+    
+    if(ball.doesIntersect(testRay2))
+    {
+        std::cout << "the ray intersects the ball\n";
+    }
+    
+    else
+    {
+        std::cout << "ray doesn't intersect the ball\n";
+    }
+    
+    
+    
+  std::cout << "\n*********End of Testing Shapes***************\n\n";   
     
     return 0;
 }

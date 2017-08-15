@@ -19,8 +19,8 @@ Ray::Ray(const Ray& ray)
 Ray::Ray(const Vector3D& origin, const Vector3D& direction, double distance)
 	: m_origin(origin), m_distance(distance)
 {
-    m_direction = normalize(direction);
     std::cout << "calling user defined constructor on Ray objcet\n";
+    m_direction = normalize(direction);
 }
 
 //destructor

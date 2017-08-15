@@ -64,7 +64,10 @@ class Vector3D
         
         //scalar and vector products
         friend double dotProduct(const Vector3D &vector1, const Vector3D &vector2);
-        friend Vector3D crossProduct(const Vector3D &vector1, const Vector3D &vector3D);  
+        friend Vector3D crossProduct(const Vector3D &vector1, const Vector3D &vector3D); 
+        
+        //to test if the vector is normalized
+        bool isNormalized() const; 
         
         virtual ~Vector3D();
 };

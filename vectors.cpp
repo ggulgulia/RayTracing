@@ -39,6 +39,7 @@ double length(const Vector3D &vector)
 
 Vector3D normalize(const Vector3D &vector)
 {
+    std::cout <<"Normalize function invoked\n";
     return (vector/length(vector));
 }
 	
@@ -48,7 +49,7 @@ Vector3D::~Vector3D()
 
 std::ostream& operator<<(std::ostream &out, const Vector3D &vector)
 {
-	out << "{x,y,z " << vector.m_x << ", " << vector.m_y << ", " << vector.m_z << "}\t";
+	out << "{x,y,z}: {" << vector.m_x << ", " << vector.m_y << ", " << vector.m_z << "}\t";
 	return out;
 }
 
@@ -81,7 +82,7 @@ const double& Vector3D::operator[](const int index) const
 //overloaded assignment operator
 Vector3D& Vector3D::operator=(const Vector3D &vector)
 {
-	std::cout << "Calling overloaded assignment operator\n";
+	std::cout << "Calling overloaded assignment operator on vectors\n";
 	this->m_x = vector.m_x;
 	this->m_y = vector.m_y;
 	this->m_z = vector.m_z;
@@ -163,6 +164,29 @@ Vector3D crossProduct(const Vector3D &vector1, const Vector3D &vector2)
 }
 
 typedef Vector3D Point;
+
+bool Vector3D::isNormalized() const
+{
+    double TOL{0.00001},magnitude_sq = (m_x*m_x) + (m_y*m_y)+(m_z*m_z);
+    
+    //int magnitude = static_cast<int>(magnitude_sq);
+    
+    
+    if((magnitude_sq<=1.0+TOL)||(magnitude_sq>=1.0-TOL) )
+     {      
+       // std::cout << "Magnitude: " << magnitude_sq <<"\n";
+       // std::cout << "returning True\n";
+        return true;
+     }
+    
+    else
+     {   
+        //std::cout << "Magnitude: " << magnitude_sq <<"\n";
+        //std::cout << "returning false\n";
+        return false;      
+     }
+}
+    
 
 /*****************************************************************/
 /************************FOR TESTING******************************/

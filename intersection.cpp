@@ -12,7 +12,8 @@ Intersection::Intersection(const Intersection &i)
 {
 }
 
-//user defined constructor withot any shape object
+//user defined constructor without any shape object, 
+//makes the intersect object traverse a distance equal to ray travesal distance
 Intersection::Intersection(const Ray &ray)
 	: m_ray(ray), m_traverse(ray.getDistance()), m_pShape(NULL)
 {

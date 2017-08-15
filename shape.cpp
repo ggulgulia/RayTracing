@@ -181,12 +181,14 @@ bool Sphere::doesIntersect(const Ray& ray)
 {
 	// Transform ray so we can consider origin-centred sphere
 	Ray localRay = ray;
+	std::cout << localRay.getOrigin();
 	localRay.setOrigin(localRay.getOrigin() - m_centre);
+	std::cout << localRay.getOrigin();
 
 	// Calculate quadratic coefficients
 	double a = lengthSq(localRay.getDirection());
 	double b = 2 * dotProduct(localRay.getDirection(), localRay.getOrigin());
-	double c = lengthSq(localRay.getOrigin())- (m_radius*m_radius);
+	double c = lengthSq(localRay.getOrigin()) - (m_radius*m_radius);
 
 	// Check whether we intersect
 	double discriminant = (b*b) - 4*a*c;
