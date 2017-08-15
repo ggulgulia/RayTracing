@@ -33,9 +33,15 @@ class Ray
 	    //at a distance 'distance' on the ray (along the ray direction)
 	    Vector3D calculate(double distance) const;
 	    
+	    //getter functions
 	    const Vector3D getDirection() const;
 	    const Vector3D getOrigin() const;
 	    const double getDistance() const;
+	    
+	    //setter functions
+	    void setOrigin(const Vector3D &origin);
+	    void setDirection(const Vector3D &direction); //direction has to be normalized
+	    void setDistance(double distance);
 
 };
             

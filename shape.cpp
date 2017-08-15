@@ -1,4 +1,5 @@
 #include "shape.h"
+#include <cmath>
 
 
 /*
@@ -119,7 +120,7 @@ bool Plane::doesIntersect(const Ray& ray)
 //------------------------------------------------------------//
 //                      SPHERE SHAPE BEGINS 
 //------------------------------------------------------------//
-/***************************************************
+/***************************************************/
 //Sphere::Sphere(const Vector3D& centre, double radius, const Color& color)
 Sphere::Sphere(const Vector3D& centre, double radius)
 	: m_centre(centre), m_radius(radius)
@@ -133,34 +134,35 @@ Sphere::~Sphere()
 bool Sphere::intersect(Intersection& intersection)
 {
 	// Transform ray so we can consider origin-centred sphere
-	Ray localRay = intersection.ray;
-	localRay.origin -= centre;
+	Ray localRay = intersection.getRay();
+	localRay.setOrigin(localRay.getOrigin() - m_centre); //implicit sphere
 
 	// Calculate quadratic coefficients
-	double a = localRay.direction.length2();
-	double b = 2 * dot(localRay.direction, localRay.origin);
-	double c = localRay.origin.length2() - sqr(radius);
+	double a = lengthSq(localRay.getDirection());
+	double b = 2 * dotProduct(localRay.getDirection(), localRay.getOrigin());
+	double c = lengthSq(localRay.getOrigin()) - (m_radius*m_radius);
 
 	// Check whether we intersect
-	double discriminant = sqr(b) - 4 * a * c;
+	double discriminant = (b*b) - (4 * a * c);
 
+    //the roots are complex and the ray doesn't intersect the sphere
 	if (discriminant < 0.0f)
 	{
 		return false;
 	}
 
 	// Find two points of intersection, t1 close and t2 far
-	double t1 = (-b - std::sqrt(discriminant)) / (2 * a);
-	double t2 = (-b + std::sqrt(discriminant)) / (2 * a);
+	double t1 = (-b - std::sqrt(discriminant)) / (2*a);
+	double t2 = (-b + std::sqrt(discriminant)) / (2*a);
 
 	// First check if close intersection is valid
-	if (t1 > RAY_T_MIN && t1 < intersection.t)
+	if (t1 > RAY_T_MIN && t1 < intersection.getTraverse())
 	{
-		intersection.t = t1;
+		intersection.setTraverse(t1);
 	}
-	else if (t2 > RAY_T_MIN && t2 < intersection.t)
+	else if (t2 > RAY_T_MIN && t2 < intersection.getTraverse())
 	{
-		intersection.t = t2;
+		intersection.setTraverse(t2);
 	}
 	else
 	{
@@ -169,8 +171,8 @@ bool Sphere::intersect(Intersection& intersection)
 	}
 
 	// Finish populating intersection
-	intersection.pShape = this;
-	intersection.color = color;
+	intersection.setShape(this);
+	//intersection.color = color;
 
 	return true;
 }
@@ -179,15 +181,15 @@ bool Sphere::doesIntersect(const Ray& ray)
 {
 	// Transform ray so we can consider origin-centred sphere
 	Ray localRay = ray;
-	localRay.origin -= centre;
+	localRay.setOrigin(localRay.getOrigin() - m_centre);
 
 	// Calculate quadratic coefficients
-	double a = localRay.direction.length2();
-	double b = 2 * dot(localRay.direction, localRay.origin);
-	double c = localRay.origin.length2() - sqr(radius);
+	double a = lengthSq(localRay.getDirection());
+	double b = 2 * dotProduct(localRay.getDirection(), localRay.getOrigin());
+	double c = lengthSq(localRay.getOrigin())- (m_radius*m_radius);
 
 	// Check whether we intersect
-	double discriminant = sqr(b) - 4 * a * c;
+	double discriminant = (b*b) - 4*a*c;
 
 	if (discriminant < 0.0f)
 	{
@@ -195,17 +197,17 @@ bool Sphere::doesIntersect(const Ray& ray)
 	}
 
 	// Find two points of intersection, t1 close and t2 far
-	double t1 = (-b - std::sqrt(discriminant)) / (2 * a);
-	if (t1 > RAY_T_MIN && t1 < ray.tMax)
+	double t1 = (-b - std::sqrt(discriminant)) / (2*a);
+	double t2 = (-b + std::sqrt(discriminant)) / (2*a);
+	
+	if (t1 > RAY_T_MIN && t1 < ray.getDistance())
 		return true;
-
-	double t2 = (-b + std::sqrt(discriminant)) / (2 * a);
-	if (t2 > RAY_T_MIN && t2 < ray.tMax)
+		
+	if (t2 > RAY_T_MIN && t2 < ray.getDistance())
 		return true;
 
 	return false;
 }
-***************************************************/
 //------------------------------------------------------------//
 //                      SPHERE SHAPE ENDS 
 //------------------------------------------------------------//

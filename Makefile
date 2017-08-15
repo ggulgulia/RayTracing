@@ -1,4 +1,4 @@
-SOURCES= vectors.cpp matrix.cpp matrix2.cpp ray.cpp intersection.cpp shape.cpp camera.cpp main.cpp
+SOURCES= vectors.cpp matrix.cpp matrix2.cpp ray.cpp intersection.cpp shape.cpp camera.cpp image.cpp main.cpp
 CC=g++
 
 CFLAGS=-std=c++11 -c -Werror -pedantic -Wall
@@ -25,5 +25,3 @@ $(OBJECTS): %.o : %.cpp
 		
 clean:
 	rm -f $(OBJECTS) $(EXECUTABLE)
-	
-	

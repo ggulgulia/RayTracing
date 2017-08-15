@@ -4,8 +4,35 @@
 #include "intersection.h"
 #include "ray.h"
 #include "shape.h"
+#include "camera.h"
+#include "image.h"
 #include <cmath>
 #include <iomanip>
+
+void rayTrace(Image& image, Camera* camera, Plane plane)
+{
+	// Do nothing
+	for (size_t x = 0; x < image.getWidth(); x++)
+	{
+		for (size_t y = 0; y < image.getHeight(); y++)
+		{
+			Vector3D screenCoord((2.0f*x) / image.getWidth() - 1.0f, (-2.0f*y) / image.getHeight() + 1.0f, 0.0);
+			Ray ray = camera->makeRay(screenCoord);
+
+			double* curPixel = image.getPixel(x, y);
+
+			Intersection intersection(ray);
+			if (plane.intersect(intersection))
+			{
+				*curPixel = 256;
+			}
+			else
+			{
+				*curPixel = 0;
+			}
+		}
+	}
+}
 
 int main(int argc, char** argv)
 {

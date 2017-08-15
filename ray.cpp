@@ -17,8 +17,9 @@ Ray::Ray(const Ray& ray)
 
 //user defined constructor
 Ray::Ray(const Vector3D& origin, const Vector3D& direction, double distance)
-	: m_origin(origin), m_direction(direction), m_distance(distance)
+	: m_origin(origin), m_distance(distance)
 {
+    m_direction = normalize(direction);
     std::cout << "calling user defined constructor on Ray objcet\n";
 }
 
@@ -45,7 +46,7 @@ std::ostream& operator<<(std::ostream &out, const Ray &ray)
     return out;
 }
 
-//caclulates the point on the ray at a given distance
+//caclulates the point on the ray at a given distance from its origin
 Vector3D Ray::calculate(double distance) const
 {
 	return (this->m_origin + (this->m_direction * distance));
@@ -64,6 +65,23 @@ const Vector3D  Ray::getOrigin() const
 const double Ray::getDistance() const
 {
     return m_distance;
+}
+
+/****************setter functions*******************/
+void Ray::setOrigin(const Vector3D &origin)
+{
+    this->m_origin = origin;
+}
+
+//direction has to be normalized
+void Ray::setDirection(const Vector3D &direction)
+{
+    this->m_direction = normalize(direction);
+}
+
+void Ray::setDistance(double distance)
+{
+    this->m_distance = distance;
 }
 
 

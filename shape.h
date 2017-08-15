@@ -53,7 +53,7 @@ class Plane : public Shape
 	    virtual bool doesIntersect(const Ray &ray);
 };
 
-/***************************************************
+/***************************************************/
 class Sphere : public Shape
 {
     protected:
@@ -62,6 +62,8 @@ class Sphere : public Shape
 	    //Color m_color;
 
     public:
+    
+    //default constructor
 	    Sphere(const Vector3D &m_centre, double m_radius);
 		    //const Color &color = Color(1.0f, 1.0f, 1.0f));
 
@@ -70,5 +72,5 @@ class Sphere : public Shape
 	    virtual bool doesIntersect(const Ray &ray);
 	    
 };
-***************************************************/
+/***************************************************/
 #endif 
