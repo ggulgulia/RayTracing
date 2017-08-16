@@ -5,21 +5,21 @@
 Ray::Ray()
 	: m_origin(0.0f, 0.0f, 0.0f), m_direction(), m_distance(RAY_T_MAX)
 {
-    std::cout << "calling default constructor on Ray objcet\n";
+   // std::cout << "calling default constructor on Ray objcet\n";
 }
 
 //copy construtor
 Ray::Ray(const Ray& ray)
 	: m_origin(ray.m_origin), m_direction(ray.m_direction), m_distance(ray.m_distance)
 {
-    std::cout << "calling copy constructor on Ray objcet\n";
+   // std::cout << "calling copy constructor on Ray objcet\n";
 }
 
 //user defined constructor
 Ray::Ray(const Vector3D& origin, const Vector3D& direction, double distance)
 	: m_origin(origin), m_distance(distance)
 {
-    std::cout << "calling user defined constructor on Ray objcet\n";
+    //std::cout << "calling user defined constructor on Ray objcet\n";
     m_direction = normalize(direction);
 }
 

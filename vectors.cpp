@@ -39,7 +39,7 @@ double length(const Vector3D &vector)
 
 Vector3D normalize(const Vector3D &vector)
 {
-    std::cout <<"Normalize function invoked\n";
+    //std::cout <<"Normalize function invoked\n";
     return (vector/length(vector));
 }
 	
@@ -82,7 +82,7 @@ const double& Vector3D::operator[](const int index) const
 //overloaded assignment operator
 Vector3D& Vector3D::operator=(const Vector3D &vector)
 {
-	std::cout << "Calling overloaded assignment operator on vectors\n";
+	//std::cout << "Calling overloaded assignment operator on vectors\n";
 	this->m_x = vector.m_x;
 	this->m_y = vector.m_y;
 	this->m_z = vector.m_z;

@@ -54,7 +54,7 @@ bool ShapeSet::doesIntersect(const Ray& ray)
 Plane::Plane(const Vector3D& position, const Vector3D& normal)
 	: m_position(position), m_normal(normal)
 {
-    std::cout << "calling deafault constructor on Plane object\n";
+  //  std::cout << "calling deafault constructor on Plane object\n";
 }
 
 Plane::~Plane()

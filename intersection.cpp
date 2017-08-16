@@ -17,7 +17,7 @@ Intersection::Intersection(const Intersection &i)
 Intersection::Intersection(const Ray &ray)
 	: m_ray(ray), m_traverse(ray.getDistance()), m_pShape(NULL)
 {
-    std::cout << "Calling Intersection constructor taking Ray object\n";
+   // std::cout << "Calling Intersection constructor taking Ray object\n";
 }
 
 Intersection::~Intersection()

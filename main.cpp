@@ -7,31 +7,36 @@
 #include "camera.h"
 #include "image.h"
 #include <cmath>
+#include <png++/png.hpp>
 #include <iomanip>
 
-void rayTrace(Image& image, Camera* camera, Plane plane)
+void rayTrace(Camera* camera, Shape *shape, png::image< png::rgb_pixel > image)
 {
 	// Do nothing
-	for (size_t x = 0; x < image.getWidth(); x++)
+	for (size_t x = 0; x < image.get_width(); x++)
 	{
-		for (size_t y = 0; y < image.getHeight(); y++)
+		for (size_t y = 0; y < image.get_height(); y++)
 		{
-			Vector3D screenCoord((2.0f*x) / image.getWidth() - 1.0f, (-2.0f*y) / image.getHeight() + 1.0f, 0.0);
+			Vector3D screenCoord( ((2.0f*x)/image.get_width()-1.0), ((-2.0*y)/image.get_height() + 1.0), 0.0);
 			Ray ray = camera->makeRay(screenCoord);
-
-			double* curPixel = image.getPixel(x, y);
-
+			
 			Intersection intersection(ray);
-			if (plane.intersect(intersection))
+			
+			if (shape->intersect(intersection))
 			{
-				*curPixel = 256;
+				
+				image[y][x] = png::rgb_pixel(23,69,46);
 			}
 			else
 			{
-				*curPixel = 0;
+				
+				image[y][x] = png::rgb_pixel(255,255,255);
 			}
 		}
 	}
+	
+	 image.write("GG.png");
+	 
 }
 
 int main(int argc, char** argv)
@@ -68,10 +73,10 @@ int main(int argc, char** argv)
   
     std::cout << inter.getRay() << "\n" << inter.getShape() << "\n" << "traverse " << inter.getTraverse() << "\n";
     
-    std::cout << "*********End of Testing Intersections***************\n\n";
+std::cout << "*********End of Testing Intersections***************\n\n";
     
     
-     std::cout << "\n*********Testing Shapes***************\n\n";
+std::cout << "\n*********Testing Shapes***************\n\n";
     Plane xyPlane(point, normal);
     
     if(xyPlane.doesIntersect(testRay))
@@ -102,6 +107,29 @@ int main(int argc, char** argv)
     
     
   std::cout << "\n*********End of Testing Shapes***************\n\n";   
-    
+  
+  std::cout << "\n*********Testing Images***************\n\n";
+  
+  size_t width = 480;
+  size_t height = 240;
+  //Image newImg(width, height);
+  
+  Vector3D cameraOrigin(-5.0, 1.0, 0.0);
+  Vector3D imgLoc(0.0, 1.0, 0.0);
+  Vector3D upGuide(0.0, 1.0, 0.0);
+  double fov = 45.0;
+  double aspectRatio = (double)width/(double)height;
+  std::cout << "aspect ratio : " << aspectRatio << "\n";
+  
+  PerspectiveCamera camera(cameraOrigin,
+		                   imgLoc,  
+		                   upGuide, fov,
+                           aspectRatio);
+   
+  Sphere sphere(Vector3D(0.0, 0.0, 0.0), 0.5);
+  
+  png::image< png::rgb_pixel > image(width, height);
+  
+  rayTrace(&camera, &sphere, image);     
     return 0;
 }
