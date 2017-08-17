@@ -22,7 +22,7 @@ class Ray
 	    Ray(const Ray &ray);	    
 	    Ray(const Vector3D &origin, 
             const Vector3D &direction, 
-            double tMax = RAY_T_MAX);
+            double distance = RAY_T_MAX);
 
 	    virtual ~Ray();
 

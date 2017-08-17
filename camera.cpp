@@ -14,13 +14,15 @@ PerspectiveCamera::PerspectiveCamera(Vector3D cameraOrigin, Vector3D imgTarget,
     m_right = crossProduct(m_forward, upGuide);
     m_up = normalize(crossProduct(m_right, m_forward));
     m_height = tan(FOV_rad);
-    m_width = aspectRatio * m_height;
+    m_width = aspectRatio*m_height;
 }
 
-Ray PerspectiveCamera::makeRay(Vector3D point) const
+Ray PerspectiveCamera::makeRay(const Vector3D &cameraOrigin) const
 {
-    Vector3D rayDir = m_forward + (point.m_x*m_width*m_right) + (point.m_y*m_height*m_up);
-    return Ray(point, normalize(rayDir));
+    Vector3D rayDir = m_forward + (cameraOrigin.m_x*m_width*m_right) + (cameraOrigin.m_y*m_height*m_up);
+    return Ray(cameraOrigin, rayDir);
 }
 
 Camera::~Camera() { }
+//PerspectiveCamera::~PrespectiveCamera() { }
+

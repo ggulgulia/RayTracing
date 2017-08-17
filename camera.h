@@ -9,8 +9,8 @@
 class Camera
 {
     public:
-        ~Camera();
-        virtual Ray makeRay(Vector3D cameraOrigin) const = 0;
+        virtual ~Camera();
+        virtual Ray makeRay(const Vector3D &cameraOrigin) const = 0;
         
 };
 
@@ -31,7 +31,8 @@ class PerspectiveCamera : public Camera
                             const double aspectRatio);
         
         //this calls the constructor of ray that takes Ray object
-        virtual Ray makeRay(Vector3D point) const;
+        virtual Ray makeRay(const Vector3D &cameraOrigin) const;
+        //virtual ~PerspectiveCamera();
         
 };
 

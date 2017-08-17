@@ -10,14 +10,14 @@
 #include <png++/png.hpp>
 #include <iomanip>
 
-void rayTrace(Camera* camera, Shape *shape, png::image< png::rgb_pixel > image)
+void rayTrace(Camera *camera, Shape *shape, png::image< png::rgb_pixel > &image, const double aspectRatio)
 {
 	// Do nothing
 	for (size_t x = 0; x < image.get_width(); x++)
 	{
 		for (size_t y = 0; y < image.get_height(); y++)
 		{
-			Vector3D screenCoord( ((2.0f*x)/image.get_width()-1.0), ((-2.0*y)/image.get_height() + 1.0), 0.0);
+			Vector3D screenCoord( ((2.0*x/image.get_width())-1.0), ((2.0*y/image.get_height()) - 1.0)/aspectRatio, 0.0);
 			Ray ray = camera->makeRay(screenCoord);
 			
 			Intersection intersection(ray);
@@ -35,7 +35,7 @@ void rayTrace(Camera* camera, Shape *shape, png::image< png::rgb_pixel > image)
 		}
 	}
 	
-	 image.write("GG.png");
+	 image.write("sphere.png");
 	 
 }
 
@@ -110,14 +110,14 @@ std::cout << "\n*********Testing Shapes***************\n\n";
   
   std::cout << "\n*********Testing Images***************\n\n";
   
-  size_t width = 480;
-  size_t height = 240;
+  size_t width = 720;
+  size_t height = 480;
   //Image newImg(width, height);
   
   Vector3D cameraOrigin(-5.0, 1.0, 0.0);
   Vector3D imgLoc(0.0, 1.0, 0.0);
   Vector3D upGuide(0.0, 1.0, 0.0);
-  double fov = 45.0;
+  double fov = 89.0;
   double aspectRatio = (double)width/(double)height;
   std::cout << "aspect ratio : " << aspectRatio << "\n";
   
@@ -130,6 +130,6 @@ std::cout << "\n*********Testing Shapes***************\n\n";
   
   png::image< png::rgb_pixel > image(width, height);
   
-  rayTrace(&camera, &sphere, image);     
+  rayTrace(&camera, &sphere, image, aspectRatio);     
     return 0;
 }
