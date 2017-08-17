@@ -7,8 +7,9 @@
 #include "camera.h"
 #include "image.h"
 #include <cmath>
+#include <stdlib.h>
 #include <png++/png.hpp>
-#include <iomanip>
+
 
 void rayTrace(Camera *camera, Shape *shape, png::image< png::rgb_pixel > &image, const double aspectRatio)
 {
@@ -18,8 +19,7 @@ void rayTrace(Camera *camera, Shape *shape, png::image< png::rgb_pixel > &image,
 		for (size_t y = 0; y < image.get_height(); y++)
 		{
 			Vector3D screenCoord( ((2.0*x/image.get_width())-1.0), ((2.0*y/image.get_height()) - 1.0)/aspectRatio, 0.0);
-			Ray ray = camera->makeRay(screenCoord);
-			
+			Ray ray = camera->makeRay(screenCoord);			
 			Intersection intersection(ray);
 			
 			if (shape->intersect(intersection))
@@ -110,8 +110,11 @@ std::cout << "\n*********Testing Shapes***************\n\n";
   
   std::cout << "\n*********Testing Images***************\n\n";
   
-  size_t width = 720;
-  size_t height = 480;
+ // size_t width = 720;
+ // size_t height = 480;
+ 
+    size_t width = strtoul(argv[1], NULL, 0);
+    size_t height = strtoul(argv[1], NULL, 0);
   //Image newImg(width, height);
   
   Vector3D cameraOrigin(-5.0, 1.0, 0.0);

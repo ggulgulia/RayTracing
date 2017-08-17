@@ -1,6 +1,6 @@
 #include <cmath>
 #include "camera.h"
-#include <iostream>
+//#include <iostream>
 
 
 //FOV is in degrees
