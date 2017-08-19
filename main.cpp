@@ -1,4 +1,5 @@
 #include <iostream>
+#include <chrono>
 #include "vectors.h"
 #include "matrix.h"
 #include "intersection.h"
@@ -13,15 +14,17 @@
 
 void rayTrace(Camera *camera, Shape *shape, png::image< png::rgb_pixel > &image, const double aspectRatio)
 {
-	// Do nothing
+	
 	for (size_t x = 0; x < image.get_width(); x++)
 	{
+	    //double tmax{0.0}, tmin{0.0};
 		for (size_t y = 0; y < image.get_height(); y++)
 		{
 			Vector3D screenCoord( ((2.0*x/image.get_width())-1.0), ((2.0*y/image.get_height()) - 1.0)/aspectRatio, 0.0);
 			Ray ray = camera->makeRay(screenCoord);			
 			Intersection intersection(ray);
-			
+			//BoundingBox shapeBox
+			//if(shape->getBoundingBox().intersect
 			if (shape->intersect(intersection))
 			{
 				
@@ -30,7 +33,7 @@ void rayTrace(Camera *camera, Shape *shape, png::image< png::rgb_pixel > &image,
 			else
 			{
 				
-				image[y][x] = png::rgb_pixel(255,255,255);
+				image[y][x] = png::rgb_pixel(25,255,255);
 			}
 		}
 	}
@@ -77,13 +80,6 @@ std::cout << "*********End of Testing Intersections***************\n\n";
     
     
 std::cout << "\n*********Testing Shapes***************\n\n";
-    Plane xyPlane(point, normal);
-    
-    if(xyPlane.doesIntersect(testRay))
-    {
-        std::cout << "the ray intersects the plane\n";
-    }
-    
     
     Vector3D centre(4,4,0);
     Sphere ball(centre, 4.0);
@@ -110,13 +106,9 @@ std::cout << "\n*********Testing Shapes***************\n\n";
   
   std::cout << "\n*********Testing Images***************\n\n";
   
- // size_t width = 720;
- // size_t height = 480;
- 
-    size_t width = strtoul(argv[1], NULL, 0);
-    size_t height = strtoul(argv[1], NULL, 0);
-  //Image newImg(width, height);
-  
+  size_t width = strtoul(argv[1], NULL, 0);
+  size_t height = strtoul(argv[2], NULL, 0);
+
   Vector3D cameraOrigin(-5.0, 1.0, 0.0);
   Vector3D imgLoc(0.0, 1.0, 0.0);
   Vector3D upGuide(0.0, 1.0, 0.0);
@@ -133,6 +125,15 @@ std::cout << "\n*********Testing Shapes***************\n\n";
   
   png::image< png::rgb_pixel > image(width, height);
   
+  std::chrono::time_point<std::chrono::system_clock> start;
+  std::chrono::time_point<std::chrono::system_clock> end;
+  
+  start = std::chrono::system_clock::now();
   rayTrace(&camera, &sphere, image, aspectRatio);     
-    return 0;
+  end = std::chrono::system_clock::now();
+  
+  std::chrono::duration<double> totalTime = end-start;
+  
+  std::cout << "Elapsed time : " << totalTime.count() << " seconds\n";
+  return 0;
 }
