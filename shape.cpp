@@ -30,12 +30,15 @@ BoundingBox::BoundingBox(const Vector3D &min, const Vector3D &max)
 BoundingBox::BoundingBox(const BoundingBox &boundingBox)
     : m_min(boundingBox.getMin()), m_max(boundingBox.getMax())
 {
-    std::cout << "CallingCopy Constructor\n";
+    //std::cout << "CallingCopy Constructor\n";
 }
 
-BoundingBox BoundingBox::operator=(const BoundingBox &boundingBox)
+const BoundingBox& BoundingBox::operator=(const BoundingBox &boundingBox)
 {
-  return BoundingBox(boundingBox.getMin(), boundingBox.getMax()); 
+  std::cout << "Calling overloaded operator on bounding box\n";
+  this->m_min = boundingBox.getMin();
+  this->m_max = boundingBox.getMax();
+  return *this;
 }
 
 const Vector3D& BoundingBox::getMin() const
@@ -48,7 +51,7 @@ const Vector3D& BoundingBox::getMax() const
     return m_max;
 }
 
-bool BoundingBox::intersect(Intersection& intersection, double &tmin, double &tmax)
+bool BoundingBox::intersect(Intersection &intersection, double &tmin, double &tmax)
 {
   Ray localRay = intersection.getRay();
  
@@ -240,17 +243,11 @@ bool ShapeSet::doesIntersect(const Ray& ray)
 Sphere::Sphere(const Vector3D& centre, double radius)
 	: m_centre(centre), m_radius(radius)
 {
-    double xMin = centre.m_x - radius;
-    double xMax = centre.m_x + radius;
-    double yMin = centre.m_y - radius;
-    double yMax = centre.m_y + radius;
-    double zMin = centre.m_z - radius;
-    double zMax = centre.m_z + radius;
     
-    Vector3D minBounds(xMin, yMin, zMin);
-    Vector3D maxBounds(xMax, yMax, zMax);
     
-    m_bbox= BoundingBox(minBounds, maxBounds);
+    Vector3D minBounds = centre - Vector3D(radius, radius, radius);
+    Vector3D maxBounds = centre + Vector3D(radius, radius, radius);
+    m_bbox = BoundingBox(minBounds, maxBounds);
 }
 
 Sphere::~Sphere()

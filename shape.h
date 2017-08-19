@@ -8,7 +8,6 @@
 #include "intersection.h"
 
 #define _MAX_ 100000000
-#define INF   10000000000000
 
 template <class T> const T& max(const T& a, const T& b);
 template <class T> const T& min(const T& a, const T& b);
@@ -22,7 +21,7 @@ class Shape
 public:
 	virtual ~Shape() { }
 
-	virtual bool intersect(Intersection& intersection) = 0;
+	virtual bool intersect(Intersection &intersection) = 0;
 	virtual bool doesIntersect(const Ray& ray) = 0;
 	virtual const BoundingBox& getBoundingBox() const = 0;
 };
@@ -39,9 +38,9 @@ class BoundingBox
         BoundingBox(const BoundingBox &boundingBox);
         ~BoundingBox();
         
-         bool intersect(Intersection& intersection, double &tmin, double &tmax);
+         bool intersect(Intersection &intersection, double &tmin, double &tmax);
          
-         BoundingBox operator=(const BoundingBox &boundingBox);
+         const BoundingBox& operator=(const BoundingBox &boundingBox);
          const Vector3D& getMin() const;
          const Vector3D& getMax() const;
         //virtual bool doesIntersect(const Ray& ray)
@@ -75,13 +74,11 @@ class Sphere : public Shape
 	    Vector3D m_centre;
 	    double m_radius;
 	    BoundingBox m_bbox;
-	    //Color m_color;
-
+	   
     public:
     
     //default constructor
 	    Sphere(const Vector3D &m_centre, double m_radius);
-		    //const Color &color = Color(1.0f, 1.0f, 1.0f));
 
 	    virtual ~Sphere();
 	    virtual bool intersect(Intersection &intersection);
